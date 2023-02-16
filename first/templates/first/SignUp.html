@@ -1,0 +1,13 @@
+{%extends 'first/main.html'%}
+{%block content%}
+SignUp
+<form method = "POST">
+    {%csrf_token%}
+    {{form.as_p}}
+    <input type ="submit" value ="SignUp">
+    <a href ="{%url 'SignUp'%}"><a/>
+<form/>
+<p>Already have an account? 
+<a href="{% url 'login' %}">Login</a>
+</p>
+{%endblock content%}

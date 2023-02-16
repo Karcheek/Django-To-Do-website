@@ -1,0 +1,47 @@
+{%extends 'first/main.html'%}
+{%block content%}
+<!DOCTYPE html>
+{% load tailwind_tags %}
+<html>
+<hr>
+{%if request.user.is_authenticated%}
+<p>{{request.user}}<p/>
+<a href = "{%url 'logout'%}">Logout<a/>
+{%else%}
+<a href = "{%url 'login'%}">Login<a/>
+{%endif%}
+<hr>
+<a href ="{% url 'task-create' %}" >Create Task<a/>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>HomePage</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% comment %} <script src="https://cdn.tailwindcss.com"></script>  {% endcomment %}
+        {% tailwind_css %}
+    </head>
+    <body>
+        <form method = "GET">
+        <input type = 'text' name = search-area value = "{{search_input}}">
+        <input type = 'submit' value = "Search">
+        <table class="shadow-xl ... h-14 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg ... ">
+        <tr>
+        <th>Items<th/>
+        <th><th/>
+        </tr>
+        {%for task in tasks%}
+        <tr>
+        <td>{{task.title}}<td/>
+        {% comment %} <td><a href = "{%url 'task' task.id%}">View<a/><td/> {% endcomment %}
+        <td><a  href = "{%url 'task-update' task.id%}">Update<a/><td/>
+        <td><a href = "{%url 'task-delete' task.id%}">Delete<a/><td/>
+        <tr/>
+        {%empty%}
+        <h1><h1/>
+        No items 
+        {%endfor%}
+        <table/>
+    </body>
+</html>
+{%endblock content%}
